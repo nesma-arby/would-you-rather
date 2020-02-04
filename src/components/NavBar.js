@@ -1,9 +1,6 @@
-import React from 'react';
-import { useState } from 'react';
-import avatar from '../img/avatar.jpg';
-// import {connect} from 'react-redux'; 
-
-
+import  React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom'
 import {
   Collapse,
   Navbar,
@@ -16,51 +13,86 @@ import {
 
 
 
+class NavBar extends React.Component {
 
-const NavBar = (props) => {
-  const [isOpen, setIsOpen] = useState(false);
+  constructor(props) {
+    super(props);
+    this.state = {
+      isOpen: false
+    }
+  }
 
-  const toggle = () => setIsOpen(!isOpen);
+  toggle = () => {
+    this.setState({
+      isOpen: !this.state.isOpen
+    });
+  };
 
-  return (
-    <div>
-      <Navbar color="light" light expand="md">
-        {/* <NavbarBrand href="/Home">Home</NavbarBrand> */}
-        <NavbarToggler onClick={toggle} />
-        <Collapse isOpen={isOpen} navbar>
 
-          <Nav className="mr-auto" navbar>
+  render() {
 
-            <NavItem>
-              <NavLink href="/Home">Home</NavLink>
-            </NavItem>
+    const authedUser = this.props.mystate.authedUser_reducer;
 
-            <NavItem>
-              <NavLink href="/add">New Questions</NavLink>
-            </NavItem>
+    if(authedUser !== null){
 
-            <NavItem>
-              <NavLink href="/leaderboard">Leader Board</NavLink>
-            </NavItem>
+      const users = this.props.mystate.users_reducer.users;
 
-          </Nav>
+      return (
+      
+        <div>
+  
+          <Navbar color="light" light expand="md">
+  
+            <NavbarToggler onClick={this.toggle} />
+            <Collapse isOpen={this.state.isOpen} navbar>
+  
+              <Nav className="mr-auto" navbar>
+  
+                <NavItem>
+                  <NavLink tag={Link} to="/Home">Home</NavLink>
+                </NavItem>
+  
+                <NavItem>
+                  <NavLink tag={Link} to="/add">New Questions</NavLink>
+                </NavItem>
+  
+                <NavItem>
+                  <NavLink tag={Link} to="/leaderboard">Leader Board</NavLink>
+                </NavItem>
+  
+              </Nav>
+  
+  
+                <NavbarText className="mr-2"> Hello {authedUser} </NavbarText>
+  
+                <img src={users[authedUser].avatarURL} alt='user-avatar' className='rounded avatar'
+                />
+  
+                <NavbarText className="mr-1 logout" tag={Link} to="/logout">Logout</NavbarText>
+  
+  
+            </Collapse>
+          </Navbar>
+        </div>
+  
+      );
 
-          <div id='loginInfo' hidden>
+    }else{
+      return <div></div>
+    }
 
-            <NavbarText className="mr-2">Hello Ahmed</NavbarText>
-            <img src={avatar} alt='user-avatar' className='rounded mr-4 avatar' />
-
-            <NavbarText className="mr-1 logout">Logout</NavbarText>
-
-          </div>
-
-        </Collapse>
-      </Navbar>
-    </div>
-  );
+  }
 }
 
-export default NavBar;
+
+
+function mapStateToProps(mystate) {
+  return {
+    mystate
+  }
+}
+
+export default connect(mapStateToProps, null)(NavBar)
 
 
 

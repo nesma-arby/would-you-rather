@@ -1,13 +1,10 @@
 import React from 'react';
 import {
   TabContent, TabPane, NavItem, Nav, NavLink, Card, Button, CardTitle, CardText, Container, Row, Col,
-  CardBody, CardSubtitle, CardImg
+  CardBody, CardSubtitle
 } from 'reactstrap';
-
-import user from '../img/user.jfif';
 import classnames from 'classnames';
 import { connect } from 'react-redux';
-// import {receive_users,loadData} from '../actions/users'
 
 
 class Home extends React.Component {
@@ -28,91 +25,113 @@ class Home extends React.Component {
 
   render() {
 
-    // console.log(this.props.state)
 
-    return (
+    if (Object.entries(this.props.mystate.users_reducer).length > 0) {
 
-      <div>
 
-        <Container>
-          <Row>
-            <Col md={{ size: 6, offset: 3 }}>
+      const users = this.props.mystate.users_reducer.users;
+      const authedUser = this.props.mystate.authedUser_reducer;
+      const authed_user_info = this.props.mystate.users_reducer.users[authedUser];
+      const questions = this.props.mystate.users_reducer.questions;
 
-              <Nav tabs>
-                <NavItem>
-                  <NavLink
-                    className={classnames({ active: this.state.activeTab === '1' })}
-                    onClick={() => { this.toggle('1'); }}
-                  >
-                    Unanswered Questions
-                  </NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink
-                     className={classnames({ active: this.state.activeTab === '2' })}
-                    onClick={() => { this.toggle('2'); }}
-                  >
-                    Answered Questions
-            </NavLink>
-                </NavItem>
-              </Nav>
+      const questions_ids = Object.keys(this.props.mystate.users_reducer.questions);
+      const user_answers = Object.keys(authed_user_info.answers)
+      const UnansweredQuestions = questions_ids.filter(qid => !user_answers.includes(qid))
 
-              <TabContent activeTab={this.state.activeTab}>
+      return (
+        <div>
 
-                <TabPane tabId="1">
-                  <Card>
-                    <CardImg top width="50%" src={user} alt="Card image cap" />
-                    <CardBody>
-                      <CardTitle> Nesma Arby </CardTitle>
-                      <CardSubtitle> Would You Rather ! </CardSubtitle>
-                      <CardText> Be a frontend ... .</CardText>
-                      <Button> View Poll </Button>
-                    </CardBody>
-                  </Card>
-                </TabPane>
+          <Container>
+            <Row>
+              <Col md={{ size: 6, offset: 3 }}>
 
-                <TabPane tabId="2">
+                <Nav tabs>
+                  <NavItem>
+                    <NavLink
+                      className={classnames({ active: this.state.activeTab === '1' })}
+                      onClick={() => { this.toggle('1'); }}
+                    >
+                      Unanswered Questions
+                    </NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink
+                      className={classnames({ active: this.state.activeTab === '2' })}
+                      onClick={() => { this.toggle('2'); }}
+                    >
+                      Answered Questions
+              </NavLink>
+                  </NavItem>
+                </Nav>
 
-                  {Object.values(this.props.state.users_reducer.state.users).map( n =>
-                                   
-                      Object.entries(n.answers).map(s => console.log())
-                  
-                  )
-                  
-                  
-                  }
+                <TabContent activeTab={this.state.activeTab}>
 
-                  <Card>
-                    <CardImg top width="50%" src={user} alt="Card image cap" />
-                    <CardBody>
-                      <CardTitle> Ahmed Arby </CardTitle>
-                      <CardSubtitle> Would You Rather ! </CardSubtitle>
-                      <CardText> Be a frontend ... .</CardText>
-                      <Button> View Poll </Button>
-                    </CardBody>
-                  </Card>
+                  <TabPane tabId="1">
 
-                </TabPane>
+                    {UnansweredQuestions.map(u =>
 
-              </TabContent>
+                      <Card key={questions[u].id}>
+                        <img src={users[questions[u].author].avatarURL} className='avatar'
+                          alt={`Avatar of ${users[questions[u].author].name}`} />
+                        <CardTitle>  {questions[u].author} asks:  </CardTitle>
+                        <CardBody>
+                          <CardSubtitle> Would You Rather ! </CardSubtitle>
+                          <CardText> {questions[u].optionOne.text}  </CardText>
+                          <Button> View Poll </Button>
+                        </CardBody>
+                      </Card>
 
 
 
-            </Col>
-          </Row>
-        </Container>
+                    )}
+
+                  </TabPane>
+
+                  <TabPane tabId="2">
+                    {
+                      Object.keys(authed_user_info.answers).map(key =>
+                        // console.log(key, authed_user_info.answers[key])
+                        //  console.log(questions[key])
+                        <Card key={questions[key].id} >
+                          <img src={users[questions[key].author].avatarURL} className='avatar'
+                            alt={`Avatar of ${users[questions[key].author].name}`} />
+                          <CardTitle> {questions[key].author} asks: </CardTitle>
+                          <CardBody>
+                            <CardSubtitle> Would You Rather ! </CardSubtitle>
+                            <CardText> {questions[key][authed_user_info.answers[key]].text}</CardText>
+                            <Button> View Poll </Button>
+                          </CardBody>
+                        </Card>
+                      )
+
+                    }
 
 
-      </div>
-    );
-    
+                  </TabPane>
+
+                </TabContent>
+
+
+
+              </Col>
+            </Row>
+          </Container>
+
+
+        </div>
+      );
+
+
+    } else {
+      return <div> Loading </div>
+    }
 
   }
 }
 
-export function mapStateToProps(state) {
+export function mapStateToProps(mystate) {
   return {
-    state
+    mystate
   }
 }
 

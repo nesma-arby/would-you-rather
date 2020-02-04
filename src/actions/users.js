@@ -2,8 +2,6 @@ import {RECEIVE_USERS, USER_ANSWER_QUESTION , USER_CREATE_QUESTION} from '../act
 import { getInitialData } from '../utils/api'
 
 
-
-
 // Get All users
 export const receive_users = (data) => {
     const action = {
@@ -15,23 +13,21 @@ export const receive_users = (data) => {
 
 
   // Add user question
-  export const add_user_question = () => {
-
+  export const add_user_question = (authedUser, qid) => {
     const action = {
-      type: USER_CREATE_QUESTION 
+      type: USER_CREATE_QUESTION ,
+      authedUser, 
+      qid
    }
-  
    return action;
   }
 
 
   // save user answer
   export const save_user_answer = () => {
-
     const action = {
       type: USER_ANSWER_QUESTION 
    }
-  
    return action;
   }
 

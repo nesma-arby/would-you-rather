@@ -3,7 +3,6 @@ import { Col, Row, Form, FormGroup, Label, Button , Input} from 'reactstrap';
 import ReactIcon from '../img/React-icon.png';
 import { connect } from 'react-redux';
 import { createHashHistory } from 'history';
-
 import {receive_users,loadData} from '../actions/users'
 import {set_authed_user} from '../actions/authedUser'
 
@@ -14,7 +13,6 @@ class Login extends React.Component {
   
 
   constructor(props) {
-
     super(props);
     this.state = {value: ''};
     this.Background =
@@ -23,7 +21,6 @@ class Login extends React.Component {
       this.handleChange = this.handleChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
   }
-
 
 
   componentDidMount() {
@@ -67,7 +64,7 @@ class Login extends React.Component {
 
                     <option value='' disabled>select user</option>
 
-                    {Object.values(this.props.mystate.users_reducer.state.users).map(
+                    {Object.values(this.props.mystate.users_reducer.users).map(
                       n =>
                         <option
                           value={n.id}

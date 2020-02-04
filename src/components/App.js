@@ -4,12 +4,16 @@ import { BrowserRouter as Router ,Switch, Route } from "react-router-dom";
 
 import Home from './Home';
 import Login from './Login'
-// import Question from './Question'
-// import QuestionDetails from './QuestionDetails'
 import NewQuestion from './NewQuestion'
 import LeaderBoard from './LeaderBoard'
-// import NotFound from './NotFound'
+import Logout from './Logout'
 import NavBar from './NavBar';
+
+
+// import Question from './Question'
+// import QuestionDetails from './QuestionDetails'
+// import NotFound from './NotFound'
+
 
 class App extends Component {
 
@@ -26,6 +30,7 @@ class App extends Component {
           <Route exact path='/Home' component={Home} />
           <Route path='/leaderboard' exact component={LeaderBoard} />
           <Route path='/add' component={NewQuestion} />
+          <Route exact path='/logout' component={Logout} />
           {/* <Route path="/questions/:id" component={QuestionDetails} /> */}
           {/* <Route component={NotFound} /> */}
         </Switch>
