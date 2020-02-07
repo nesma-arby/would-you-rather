@@ -90,6 +90,20 @@ margin-top: 4px;
   font-weight: bold;
 }
 
+.question-style{
+  margin-bottom: 40px;
+}
+
+.question-style p{
+  margin-bottom: 0 !important;
+}
+
+.style-text{
+  font-weight: bold;
+  color: #009688;
+  display: block;
+}
+
 .nav-tabs .nav-link:focus, .nav-tabs .nav-link:hover{
 background: aliceblue;
 }

@@ -35,7 +35,7 @@ class NavBar extends React.Component {
 
     if(authedUser !== null){
 
-      const users = this.props.mystate.users_reducer.users;
+      const users = this.props.mystate.users_reducer;
 
       return (
       
@@ -44,6 +44,7 @@ class NavBar extends React.Component {
           <Navbar color="light" light expand="md">
   
             <NavbarToggler onClick={this.toggle} />
+            
             <Collapse isOpen={this.state.isOpen} navbar>
   
               <Nav className="mr-auto" navbar>

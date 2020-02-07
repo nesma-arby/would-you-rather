@@ -1,57 +1,83 @@
 import React from 'react';
 import {
     Card, CardTitle, Container, Row, Col,
-    CardBody, CardSubtitle, CardImg ,Progress ,CardText
+    CardBody, CardSubtitle, Progress, CardText
 } from 'reactstrap';
-import user from '../img/user.jfif';
+
+import { connect } from 'react-redux'
 
 class QuestionDetails extends React.Component {
 
-    render(){
-        return(
+
+    render() {
+
+        if (Object.entries(this.props.mystate.users_reducer).length > 0) {
+
+        const users = this.props.mystate.users_reducer;
+        const authedUser = this.props.mystate.authedUser_reducer;
+        const questions = this.props.mystate.questions_reducer;
+        // Get Question if from the url
+        const id = this.props.match.params.id
+
+        return (
 
             <div>
 
-            <Container>
-                <Row>
-                    <Col md={{ size: 6, offset: 3 }}>
+                <Container>
+                    <Row>
+                        <Col md={{ size: 6, offset: 3 }}>
+
+                            <Card>
+
+                                <img src={users[authedUser].avatarURL} className='avatar'
+                                    alt={`Avatar of ${users[authedUser].name}`} />
+
+                                <CardTitle> Asked by {users[authedUser].name} </CardTitle>
 
 
-                        <Card>
-                            <CardImg top width="50%" src={user} alt="Card image cap" />
-                            <CardBody>
-                                <CardTitle> Asked by Nesma Arby  </CardTitle>
-                                <CardSubtitle> Results : </CardSubtitle>
+                                <CardBody>
+                                    <CardSubtitle> Results : </CardSubtitle>
+                                    <div className='question-style'>
+                                        <p>would you rather <span className='style-text'> {questions[id].optionOne.text}  </span> </p>
+                                        {/* <Progress value={50}>50%</Progress> */}
+                                        <small> Total number of votes <span className='style-text'>{questions[id].optionOne.votes.length}</span> </small>
+                                    </div>
 
-                                 <CardText>  
-                                <p>would you rather find 50$ ?</p>     
-                                <Progress value={50}>50%</Progress>
-                                <small>2 out of 3 votes</small>
-                                 </CardText>
+                                    <div  className='question-style'>
+                                        <p>would you rather <span className='style-text'>{questions[id].optionTwo.text}</span> </p>
+                                        {/* <Progress value={50}>50%</Progress> */}
+                                        <small>  Total number of votes <span className='style-text'> {questions[id].optionTwo.votes.length}</span> </small>
+                                    </div>
 
-                                 <CardText>  
-                                <p>would you rather find 50$ ?</p>     
-                                <Progress value={50}>50%</Progress>
-                                <small>2 out of 3 votes</small>
-                                 </CardText>
-                        
-                            </CardBody>
-                        </Card>
+                                </CardBody>
+                            </Card>
 
-                    </Col>
-                </Row>
-            </Container>
+                        </Col>
+                    </Row>
+                </Container>
 
 
-        </div>
-
-
-
-
+            </div>
         );
+
+    } else{
+        return <div></div>
     }
+
 
 
 }
 
-export default QuestionDetails ;
+}
+
+
+
+export function mapStateToProps(mystate) {
+    return {
+        mystate
+    }
+}
+
+
+
+export default connect(mapStateToProps)(QuestionDetails);

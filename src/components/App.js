@@ -8,10 +8,9 @@ import NewQuestion from './NewQuestion'
 import LeaderBoard from './LeaderBoard'
 import Logout from './Logout'
 import NavBar from './NavBar';
+import QuestionDetails from './QuestionDetails'
+import Question from './Question'
 
-
-// import Question from './Question'
-// import QuestionDetails from './QuestionDetails'
 // import NotFound from './NotFound'
 
 
@@ -31,7 +30,8 @@ class App extends Component {
           <Route path='/leaderboard' exact component={LeaderBoard} />
           <Route path='/add' component={NewQuestion} />
           <Route exact path='/logout' component={Logout} />
-          {/* <Route path="/questions/:id" component={QuestionDetails} /> */}
+          <Route path="/question-details/:id" component={QuestionDetails} />
+          <Route path="/question/:id" component={Question} />
           {/* <Route component={NotFound} /> */}
         </Switch>
 

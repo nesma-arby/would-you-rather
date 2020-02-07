@@ -22,15 +22,15 @@ class LeaderBoard extends React.Component {
                             <Col md={{ size: 6, offset: 3 }}>
 
 
-                                {Object.values(this.props.mystate.users_reducer.users).map(n =>
+                                {Object.values(this.props.mystate.users_reducer).map(n =>
 
 
                                     <Card key={n.id}>
 
                                         <img src={n.avatarURL} className='avatar' alt={`Avatar of ${user.name}`} />
+                                        <CardTitle> {n.name} </CardTitle>
 
                                         <CardBody>
-                                            <CardTitle> {n.name} </CardTitle>
                                             <CardText> Answered Questions : {Object.keys(n.answers).length} </CardText>
                                             <CardText> Created Questions : {n.questions.length} </CardText>
                                             {/* <CardText> Score : 10 </CardText> */}

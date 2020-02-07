@@ -35,13 +35,11 @@ class NewQuestion extends React.Component {
 
     handleSubmit(e){
     e.preventDefault();
-    console.log(
-        this.state.optionOne,
-        this.state.optionTwo,
-        this.props.mystate.authedUser_reducer,
-        'first values'
-    )
-    this.props.addQuestion({option1:this.state.optionOne , option2:this.state.optionTwo , authodUser: this.props.mystate.authedUser_reducer});
+ 
+    const { optionOne, optionTwo } = this.state;
+    const authodUser = this.props.mystate.authedUser_reducer
+
+    this.props.addQuestion(optionOne , optionTwo , authodUser );
     this.setState({redirect : true});
     }
 
@@ -103,7 +101,7 @@ class NewQuestion extends React.Component {
 
 function mapDispatchToProps(dispatch) {
     return {
-      addQuestion:({option1,option2,authodUser}) => {dispatch(handleAddQuestion({option1,option2,authodUser})) }
+      addQuestion:(optionOne , optionTwo , authodUser ) => {dispatch(handleAddQuestion(optionOne , optionTwo , authodUser )) }
     }
   }
 

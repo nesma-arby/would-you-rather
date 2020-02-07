@@ -4,6 +4,7 @@ import ReactIcon from '../img/React-icon.png';
 import { connect } from 'react-redux';
 import { createHashHistory } from 'history';
 import {receive_users,loadData} from '../actions/users'
+import {receive_questions} from '../actions/questions'
 import {set_authed_user} from '../actions/authedUser'
 
 class Login extends React.Component {
@@ -43,6 +44,8 @@ class Login extends React.Component {
 
   render() {
 
+ console.log(this.props.mystate)
+
     if (Object.entries(this.props.mystate.users_reducer).length > 0) {
       
       return (
@@ -64,7 +67,7 @@ class Login extends React.Component {
 
                     <option value='' disabled>select user</option>
 
-                    {Object.values(this.props.mystate.users_reducer.users).map(
+                    {Object.values(this.props.mystate.users_reducer).map(
                       n =>
                         <option
                           value={n.id}
@@ -101,6 +104,7 @@ class Login extends React.Component {
 const mapDispatchToProps = dispatch => ({
   receive_users: () => dispatch(receive_users()),
   loadData: () => dispatch(loadData()) ,
+  receive_questions: () => dispatch(receive_questions()),
   setUser(id) {
       dispatch(set_authed_user(id));
   }

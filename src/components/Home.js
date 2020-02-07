@@ -5,9 +5,13 @@ import {
 } from 'reactstrap';
 import classnames from 'classnames';
 import { connect } from 'react-redux';
+import { createHashHistory } from 'history';
+
 
 
 class Home extends React.Component {
+
+  history = createHashHistory()
 
   constructor() {
     super();
@@ -25,16 +29,14 @@ class Home extends React.Component {
 
   render() {
 
-
     if (Object.entries(this.props.mystate.users_reducer).length > 0) {
 
-
-      const users = this.props.mystate.users_reducer.users;
+      const users = this.props.mystate.users_reducer;
       const authedUser = this.props.mystate.authedUser_reducer;
-      const authed_user_info = this.props.mystate.users_reducer.users[authedUser];
-      const questions = this.props.mystate.users_reducer.questions;
+      const authed_user_info = this.props.mystate.users_reducer[authedUser];
+      const questions = this.props.mystate.questions_reducer;
 
-      const questions_ids = Object.keys(this.props.mystate.users_reducer.questions);
+      const questions_ids = Object.keys(this.props.mystate.questions_reducer);
       const user_answers = Object.keys(authed_user_info.answers)
       const UnansweredQuestions = questions_ids.filter(qid => !user_answers.includes(qid))
 
@@ -77,11 +79,9 @@ class Home extends React.Component {
                         <CardBody>
                           <CardSubtitle> Would You Rather ! </CardSubtitle>
                           <CardText> {questions[u].optionOne.text}  </CardText>
-                          <Button> View Poll </Button>
+                          <Button  onClick={() => this.props.history.push("/question/" + questions[u].id)}> View Poll </Button>
                         </CardBody>
                       </Card>
-
-
 
                     )}
 
@@ -99,7 +99,7 @@ class Home extends React.Component {
                           <CardBody>
                             <CardSubtitle> Would You Rather ! </CardSubtitle>
                             <CardText> {questions[key][authed_user_info.answers[key]].text}</CardText>
-                            <Button> View Poll </Button>
+                            <Button  onClick={() => this.props.history.push("/question-details/" + questions[key].id)}> View Poll </Button>
                           </CardBody>
                         </Card>
                       )
