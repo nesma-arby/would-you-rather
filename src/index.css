@@ -95,13 +95,31 @@ margin-top: 4px;
 }
 
 .question-style p{
-  margin-bottom: 0 !important;
+  /* margin-bottom: 0 !important; */
 }
 
 .style-text{
   font-weight: bold;
   color: #009688;
   display: block;
+}
+
+.progress-one {
+  height: 100% !important;
+  background: #808CFA !important;
+  text-align: center !important;
+}
+
+.progress-two {
+  height: 100% !important;
+  background: #FA8080 !important;
+  text-align: center !important;
+}
+
+.choise{
+  border: 1px solid royalblue;
+  padding: 10px;
+  margin-bottom: 10px;
 }
 
 .nav-tabs .nav-link:focus, .nav-tabs .nav-link:hover{
@@ -140,7 +158,12 @@ background: aliceblue;
   padding: 20px;
   margin: 20px;
   font-weight: bold;
-  font-size: 3rem;
+  font-size: 2rem;
   color: red;
 }
 
+.sign-in{
+  margin: auto;
+  display: block !important;
+  width: 20% !important
+}

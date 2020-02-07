@@ -35,10 +35,8 @@ class NewQuestion extends React.Component {
 
     handleSubmit(e){
     e.preventDefault();
- 
     const { optionOne, optionTwo } = this.state;
     const authodUser = this.props.mystate.authedUser_reducer
-
     this.props.addQuestion(optionOne , optionTwo , authodUser );
     this.setState({redirect : true});
     }

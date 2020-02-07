@@ -8,7 +8,6 @@ import { connect } from 'react-redux';
 import { createHashHistory } from 'history';
 
 
-
 class Home extends React.Component {
 
   history = createHashHistory()
@@ -37,8 +36,9 @@ class Home extends React.Component {
       const questions = this.props.mystate.questions_reducer;
 
       const questions_ids = Object.keys(this.props.mystate.questions_reducer);
-      const user_answers = Object.keys(authed_user_info.answers)
-      const UnansweredQuestions = questions_ids.filter(qid => !user_answers.includes(qid))
+      
+      const user_answers = Object.keys(authed_user_info.answers).sort((a,b) => questions[b].timestamp - questions[a].timestamp);
+      const UnansweredQuestions = questions_ids.filter(qid => !user_answers.includes(qid)).sort((a,b) => questions[b].timestamp - questions[a].timestamp)
 
       return (
         <div>

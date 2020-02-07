@@ -7,8 +7,6 @@ import {
 import user from '../img/user.jfif';
 import { connect } from 'react-redux';
 
-
-
 class LeaderBoard extends React.Component {
 
     render() {
@@ -33,7 +31,7 @@ class LeaderBoard extends React.Component {
                                         <CardBody>
                                             <CardText> Answered Questions : {Object.keys(n.answers).length} </CardText>
                                             <CardText> Created Questions : {n.questions.length} </CardText>
-                                            {/* <CardText> Score : 10 </CardText> */}
+                                            <CardText> Score : {Object.keys(n.answers).length + n.questions.length}  </CardText>
                                         </CardBody>
 
                                     </Card>

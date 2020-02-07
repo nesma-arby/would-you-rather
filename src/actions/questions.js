@@ -53,8 +53,8 @@ export const receive_questions = (data) => {
     return (dispatch) => {
         return _saveQuestionAnswer({
           authedUser: authedUser,
-          qid :qid ,
-          answer: answer
+          qid ,
+          answer
         })
         .then(() => {
             dispatch(save_question_answer(authedUser, qid, answer));

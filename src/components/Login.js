@@ -44,8 +44,6 @@ class Login extends React.Component {
 
   render() {
 
- console.log(this.props.mystate)
-
     if (Object.entries(this.props.mystate.users_reducer).length > 0) {
       
       return (

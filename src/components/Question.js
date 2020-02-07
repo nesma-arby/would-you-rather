@@ -8,8 +8,6 @@ import {handelSaveQuestionAnswer} from '../actions/questions'
 import { createHashHistory } from 'history';
 
 
-
-
 class Question extends React.Component {
 
     history = createHashHistory()
@@ -32,8 +30,7 @@ class Question extends React.Component {
     handleSubmit(e){
         const authodUser = this.props.mystate.authedUser_reducer
         const qid = this.props.match.params.id
-        this.props.saveQuestion(this.state.answer , qid , authodUser );
-        // e.preventDefault();
+        this.props.saveQuestion(authodUser, qid , this.state.answer);
         this.props.history.push("/question-details/" + qid);
     }
 
@@ -108,8 +105,6 @@ class Question extends React.Component {
                     </div>
                 )
     
-    
-    
             }else{
                 return <div></div>
             }
@@ -130,7 +125,7 @@ export function mapStateToProps(mystate){
 
 function mapDispatchToProps(dispatch) {
     return {
-      saveQuestion:(answer , qid , authodUser ) => {dispatch(handelSaveQuestionAnswer( answer , qid , authodUser )) }
+      saveQuestion:(authodUser , qid ,  answer ) => {dispatch(handelSaveQuestionAnswer(authodUser , qid ,  answer  )) }
     }
   }
 
