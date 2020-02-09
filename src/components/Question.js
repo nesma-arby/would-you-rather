@@ -28,22 +28,25 @@ class Question extends React.Component {
 
 
     handleSubmit(e){
-        const authodUser = this.props.mystate.authedUser_reducer
         const qid = this.props.match.params.id
-        this.props.saveQuestion(authodUser, qid , this.state.answer);
+        this.props.saveQuestion(this.props.authedUser, qid , this.state.answer);
         this.props.history.push("/question-details/" + qid);
     }
 
 
     render() {
 
-            if (Object.entries(this.props.mystate.users_reducer).length > 0) {
+            if (Object.entries(this.props.users).length > 0) {
 
-                const users = this.props.mystate.users_reducer;
-                const authedUser = this.props.mystate.authedUser_reducer;
-                const questions = this.props.mystate.questions_reducer;
+                const users = this.props.users;
+                const authedUser = this.props.authedUser;
+                const questions = this.props.questions;
+
                 // Get Question if from the url
                 const id = this.props.match.params.id
+
+                const answer = users[authedUser].answers[id];
+                const questionAuthor = questions[id].author ;
     
     
                 return (
@@ -56,10 +59,10 @@ class Question extends React.Component {
         
                                     <Card>
         
-                                    <img src={users[authedUser].avatarURL} className='avatar'
-                                            alt={`Avatar of ${users[authedUser].name}`} />
+                                    <img src={users[questionAuthor].avatarURL} className='avatar'
+                                            alt={`Avatar of ${users[questionAuthor].name}}`} />
         
-                                        <CardTitle> {users[authedUser].name} asks : </CardTitle>
+                                        <CardTitle> {users[questionAuthor].name} asks : </CardTitle>
         
                                         <CardBody>
 
@@ -119,7 +122,9 @@ class Question extends React.Component {
 
 export function mapStateToProps(mystate){
     return{
-         mystate
+         authedUser : mystate.authedUser_reducer,
+         questions : mystate.questions_reducer,
+         users: mystate.users_reducer
     }
 }
 

@@ -15,15 +15,17 @@ class QuestionDetails extends React.Component {
 
     render() {
 
-        if (Object.entries(this.props.mystate.users_reducer).length > 0) {
+        if (Object.entries(this.props.users).length > 0) {
 
-        const users = this.props.mystate.users_reducer;
-        const authedUser = this.props.mystate.authedUser_reducer;
-        const questions = this.props.mystate.questions_reducer;
+        const users = this.props.users;
+        const authedUser = this.props.authedUser;
+        const questions = this.props.questions;
+
         // Get Question if from the url
         const id = this.props.match.params.id
 
         const answer = users[authedUser].answers[id];
+        const questionAuthor = questions[id].author ;
 
         const total = questions[id].optionOne.votes.length + questions[id].optionTwo.votes.length;
         const percOne = this.financial((questions[id].optionOne.votes.length / total) * 100);
@@ -39,10 +41,11 @@ class QuestionDetails extends React.Component {
 
                             <Card>
 
-                                <img src={users[authedUser].avatarURL} className='avatar'
-                                    alt={`Avatar of ${users[authedUser].name}`} />
+                                <img src={users[questionAuthor].avatarURL} 
+                                     className='avatar'
+                                     alt={`Avatar of ${users[questionAuthor].name}`} />
 
-                                <CardTitle> Asked by {users[authedUser].name} </CardTitle>
+                                <CardTitle> Asked by {questionAuthor} </CardTitle>
 
 
                                 <CardBody>
@@ -84,7 +87,9 @@ class QuestionDetails extends React.Component {
 
 export function mapStateToProps(mystate) {
     return {
-        mystate
+        authedUser : mystate.authedUser_reducer,
+        questions : mystate.questions_reducer,
+        users: mystate.users_reducer
     }
 }
 

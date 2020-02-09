@@ -10,12 +10,14 @@ import {set_authed_user} from '../actions/authedUser'
 class Login extends React.Component {
 
   Background;
-  history = createHashHistory()
+  history = createHashHistory();
   
 
   constructor(props) {
     super(props);
-    this.state = {value: ''};
+    this.state = {
+      value: '' 
+  };
     this.Background =
       "https://epi-rsc.rsc-cdn.org/globalassets/00-sitewide/media/icons/download-bl.png?version=3f1b941e";
   
@@ -36,23 +38,23 @@ class Login extends React.Component {
   handleSubmit(e) {
     if(this.state.value !== ''){
       this.props.history.push('/Home');
-    }else{
-      alert('Please select a user before.');
     }
-    e.preventDefault();
+    
   }
 
   render() {
 
-    if (Object.entries(this.props.mystate.users_reducer).length > 0) {
+
+    if (Object.entries(this.props.users).length > 0) {
       
       return (
+
         <div className='login-page'>
 
           <h2> Welcome to the Would You Rather App !</h2>
           <h6> Please sign in to continue </h6>
 
-          <img src={ReactIcon} alt='react-logo' className='login-logo' />
+          <img src={ReactIcon} alt='react-logo' className='login-logo'/>
 
           <Form onSubmit={this.handleSubmit}>
             <Row form>
@@ -65,7 +67,7 @@ class Login extends React.Component {
 
                     <option value='' disabled>select user</option>
 
-                    {Object.values(this.props.mystate.users_reducer).map(
+                    {Object.values(this.props.users).map(
                       n =>
                         <option
                           value={n.id}
@@ -80,7 +82,7 @@ class Login extends React.Component {
               </Col>
             </Row>
 
-            <Button type="submit" value="Submit" onClick={() => this.props.setUser(this.state.value)}> Submit</Button>
+            <Button  type="submit" disabled={!this.state.value} value="Submit" onClick={() => this.props.setUser(this.state.value)}> Submit</Button>
 
           </Form>
 
@@ -113,7 +115,7 @@ const mapDispatchToProps = dispatch => ({
 //return all users and questions
 export function mapStateToProps(mystate) {
   return {
-    mystate
+    users:mystate.users_reducer
   }
 }
 

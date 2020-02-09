@@ -28,17 +28,24 @@ class Home extends React.Component {
 
   render() {
 
-    if (Object.entries(this.props.mystate.users_reducer).length > 0) {
+    if (Object.entries(this.props.users).length > 0) {
 
-      const users = this.props.mystate.users_reducer;
-      const authedUser = this.props.mystate.authedUser_reducer;
-      const authed_user_info = this.props.mystate.users_reducer[authedUser];
-      const questions = this.props.mystate.questions_reducer;
+      const users = this.props.users;
+      const authedUser = this.props.authedUser;
+      const authed_user_info = this.props.users[authedUser];
+      const questions = this.props.questions ;
 
-      const questions_ids = Object.keys(this.props.mystate.questions_reducer);
+      const questions_ids = Object.keys(questions);
       
-      const user_answers = Object.keys(authed_user_info.answers).sort((a,b) => questions[b].timestamp - questions[a].timestamp);
-      const UnansweredQuestions = questions_ids.filter(qid => !user_answers.includes(qid)).sort((a,b) => questions[b].timestamp - questions[a].timestamp)
+      const user_answers = 
+
+      Object.keys(authed_user_info.answers).sort((a,b) => questions[b].timestamp - questions[a].timestamp);
+      
+      // Object.keys(authed_user_info.answers).map(n => console.log(questions[n].timestamp))
+
+      const UnansweredQuestions = 
+      questions_ids.filter(qid => 
+        !user_answers.includes(qid)).sort((a,b) => questions[b].timestamp - questions[a].timestamp)
 
       return (
         <div>
@@ -129,9 +136,12 @@ class Home extends React.Component {
   }
 }
 
+
 export function mapStateToProps(mystate) {
   return {
-    mystate
+    users: mystate.users_reducer ,
+    authedUser : mystate.authedUser_reducer,
+    questions:mystate.questions_reducer
   }
 }
 

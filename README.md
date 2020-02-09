@@ -1,14 +1,25 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Would you rather Project
 
-## Available Scripts
+## Table of Contents
 
-In the project directory, you can run:
+- [How to run](#run)
+- [Description](#description)
 
-### `yarn start`
+## How to run
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- npm install
+- npm start or yarn start it'll open http://localhost:3000
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## Description
+
+ - impersonate/logg in as an existing user
+
+ - should be able to toggle between answered and unanswered polls on the home page, The polls in both categories are arranged from the most recently created (top) to the least recently created (bottom).
+
+ - You can create a new question which will be added to the unanswered questions in the home page.
+
+ - You can know how many questions each user has asked and answered from the leaderboard page
+
+ 
+
 
